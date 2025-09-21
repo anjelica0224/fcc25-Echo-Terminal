@@ -101,7 +101,13 @@ function drawScore() {
     }
 }
 
+let nextDx = 1;
+let nextDy = 0;
+
 function moveSnake() {
+    dx = nextDx;
+    dy = nextDy;
+    
     const head = { x: snake[0].x + dx, y: snake[0].y + dy };
     snake.unshift(head);
 
@@ -147,15 +153,16 @@ function moveSnake() {
 
 document.addEventListener("keydown", e => {
     if (e.key === "ArrowUp" && dy === 0) {
-        dx = 0; dy = -1;
+        nextDx = 0; nextDy = -1;
     } else if (e.key === "ArrowDown" && dy === 0) {
-        dx = 0; dy = 1;
+        nextDx = 0; nextDy = 1;
     } else if (e.key === "ArrowLeft" && dx === 0) {
-        dx = -1; dy = 0;
+        nextDx = -1; nextDy = 0;
     } else if (e.key === "ArrowRight" && dx === 0) {
-        dx = 1; dy = 0;
+        nextDx = 1; nextDy = 0;
     }
 });
+
 
 const restartButton = document.createElement("button");
 restartButton.innerText = "Restart Game";
