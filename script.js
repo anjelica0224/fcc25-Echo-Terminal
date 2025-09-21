@@ -19,6 +19,7 @@ let dx = 1;
 let dy = 0;
 let score = 0;
 let gameOver = false;
+let highScore = parseInt(localStorage.getItem("highScore")) || 0;
 
 function drawSnake() {
     // Draw snake with retro glow effect
@@ -81,8 +82,12 @@ function drawFood() {
 
 function drawScore() {
     // Update external score display
+
+    const highScoreDisplay = document.getElementById("highScoreDisplay");
+    highScoreDisplay.textContent = `HIGH SCORE: ${highScore.toString().padStart(4, '0')}`;
+
     const scoreDisplay = document.getElementById("scoreDisplay");
-    scoreDisplay.textContent = `SCORE: ${score.toString().padStart(4, '0')}`;
+    scoreDisplay.textContent = `CURRENT SCORE: ${score.toString().padStart(4, '0')}`;
     
     // Optional: Draw grid lines for retro feel
     ctx.strokeStyle = "rgba(0, 255, 255, 0.1)";
@@ -131,6 +136,14 @@ function moveSnake() {
 
     if (hitWall || hitSelf) {
         gameOver = true;
+        // Addinng high score
+        let isNewHigh = false;
+        if (score > highScore) {
+            highScore = score;
+            isNewHigh = true;
+            localStorage.setItem("highScore", highScore);
+        }
+
         // Create retro game over effect
         ctx.fillStyle = "rgba(255, 0, 110, 0.8)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -144,6 +157,19 @@ function moveSnake() {
         
         ctx.font = "bold 18px 'Courier New'";
         ctx.fillText(`FINAL SCORE: ${score}`, canvas.width / 2, canvas.height / 2 + 20);
+
+        if (isNewHigh) {
+            ctx.fillStyle = "#ff006e";
+            ctx.shadowColor = "#ff006e";
+            ctx.shadowBlur = 20;
+            ctx.font = "bold 20px 'Courier New'";
+            ctx.fillText("NEW HIGH SCORE!", canvas.width / 2, canvas.height / 2 + 40);
+        } 
+        else {
+            // Otherwise just show existing high score
+            ctx.fillText(`HIGH SCORE: ${highScore}`, canvas.width / 2, canvas.height / 2 + 40);
+        }
+
         ctx.shadowBlur = 0;
         ctx.textAlign = "left";
         
@@ -193,5 +219,11 @@ function gameLoop() {
     const delay = Math.max(minSpeed, baseSpeed - score * speedFactor);
     setTimeout(gameLoop, delay);
 }
+
+if (score > highScore) {
+    highScore = score;
+    localStorage.setItem("highScore", highScore);
+}
+
 
 gameLoop();
