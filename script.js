@@ -159,7 +159,7 @@ function moveSnake() {
         ctx.fillText(`FINAL SCORE: ${score}`, canvas.width / 2, canvas.height / 2 + 20);
 
         if (isNewHigh) {
-            ctx.fillStyle = "#ff006e";
+            ctx.fillStyle = "#0ff";           // bright cyan text
             ctx.shadowColor = "#ff006e";
             ctx.shadowBlur = 20;
             ctx.font = "bold 20px 'Courier New'";
