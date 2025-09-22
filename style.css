@@ -33,9 +33,21 @@ canvas {
     letter-spacing: 2px;
 }
 
+.high-score-display {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #0ff;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0 0 10px #0ff;
+    letter-spacing: 2px;
+}
+
 button {
     position: absolute;
-    top: 20px;
+    top: 60px;
     left: 20px;
     display: none;
     padding: 12px 24px;
@@ -60,7 +72,7 @@ button:hover {
 
 .game-title {
     position: absolute;
-    top: -80px;
+    top: -100px;
     left: 50%;
     transform: translateX(-50%);
     color: #0ff;
